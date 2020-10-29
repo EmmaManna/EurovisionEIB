@@ -42,14 +42,17 @@ public class EurovisionEIB extends Application {
         pantailakKargatu();
 
         stage.setTitle("EUROVISION EIB");
-        this.ikonoaJarri();
+        this.ikonoaJarri("");
         stage.setScene(sceneHas);
         stage.show();
     }
 
-    private void ikonoaJarri(){
-        String imagePath = Utils.lortuEzarpenak().getProperty("pathToImages")+"Bihotza.png";
+    private void ikonoaJarri(String izena){
+        String imagePath = Utils.lortuEzarpenak().getProperty("pathToImages")+izena+"Bihotza.png";
         try {
+            if(stage.getIcons().size()>0){
+                stage.getIcons().remove(0);
+            }
             stage.getIcons().add(new Image(new FileInputStream(imagePath)));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -77,14 +80,17 @@ public class EurovisionEIB extends Application {
 
     }
 
+
     public void herrialdeaHautatuErakutsi(){
         stage.setTitle("PARTE HARTZAILEAK");
+        this.ikonoaJarri("");
         stage.setScene(sceneHerrialdeHautatu);
         stage.show();
     }
 
     public void erroreaErakutsi(Herrialdea herrialdea){
         stage.setTitle(herrialdea.getIzena().toUpperCase()+"REN INGURUKO INFORMAZIOA");
+        this.ikonoaJarri(herrialdea.getBandera());
         erroreaKud.datuakJarri(herrialdea);
         stage.setScene(sceneErrorea);
         stage.show();

@@ -38,6 +38,14 @@ public class HerrialdeaHautatuKud implements Initializable {
     private Button btn_OK;
 
     @FXML
+    private Text txt_warning;
+
+    @FXML
+    void aukeratu(ActionEvent event) {
+        this.txt_warning.setVisible(false);
+    }
+
+    @FXML
     void klikEgin(ActionEvent event) {
         if(cmbx_herrialdeak.getValue()!=null){
             Herrialdea herrialdea = cmbx_herrialdeak.getValue();
@@ -52,7 +60,7 @@ public class HerrialdeaHautatuKud implements Initializable {
             main.erroreaErakutsi(herrialdea);
         }
         else{
-
+            txt_warning.setVisible(true);
         }
 
     }
@@ -62,6 +70,8 @@ public class HerrialdeaHautatuKud implements Initializable {
         List<Herrialdea> herrialdeLista = EurobisioaKud.getInstance().lortuHerrialdeak();
         ObservableList<Herrialdea> herrialdeak = FXCollections.observableArrayList(herrialdeLista);
         cmbx_herrialdeak.setItems(herrialdeak);
+
+        txt_warning.setVisible(false);
     }
 }
 
