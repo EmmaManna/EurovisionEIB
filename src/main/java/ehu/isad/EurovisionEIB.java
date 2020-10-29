@@ -21,8 +21,6 @@ public class EurovisionEIB extends Application {
     private HasieraKud hasieraKud;
 
 
-    public static void main(String[] args) { }
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
