@@ -5,6 +5,8 @@ import ehu.isad.model.Herrialdea;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class EurobisioaKud {
@@ -35,6 +37,21 @@ public class EurobisioaKud {
         }
         return emaitza;
 
+    }
+
+    public String bozkatuDu(String herrialdea){
+        String query = "select h.bandera bandera from Herrialde h, Bozkaketa b where izena='"+herrialdea+"' AND b.bozkatuDu=h.izena AND b.urtea=(SELECT strftime('%Y','now'))";
+        DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
+        ResultSet rs = dbKudeatzaile.execSQL(query);
+
+        try {
+            if(rs.next()){
+                return rs.getString("bandera");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
     }
 
 

@@ -3,28 +3,37 @@
  */
 package ehu.isad;
 
+import ehu.isad.controller.ui.ErroreaKud;
 import ehu.isad.controller.ui.HasieraKud;
 import ehu.isad.controller.ui.HerrialdeaHautatuKud;
+import ehu.isad.model.Herrialdea;
+import ehu.isad.utils.Utils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class EurovisionEIB extends Application {
 
     private Parent EurobisioaUI;
     private Parent HerrialdeaHautatuUI;
+    private Parent ErroreaUI;
 
     private Stage stage;
 
     private Scene sceneHas;
     private Scene sceneHerrialdeHautatu;
+    private Scene sceneErrorea;
 
     private HasieraKud hasieraKud;
     private HerrialdeaHautatuKud herrialdeaHautatuKud;
+    private ErroreaKud erroreaKud;
 
 
     @Override
@@ -33,8 +42,18 @@ public class EurovisionEIB extends Application {
         pantailakKargatu();
 
         stage.setTitle("EUROVISION EIB");
+        this.ikonoaJarri();
         stage.setScene(sceneHas);
         stage.show();
+    }
+
+    private void ikonoaJarri(){
+        String imagePath = Utils.lortuEzarpenak().getProperty("pathToImages")+"Bihotza.png";
+        try {
+            stage.getIcons().add(new Image(new FileInputStream(imagePath)));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void pantailakKargatu() throws IOException {
@@ -50,10 +69,24 @@ public class EurovisionEIB extends Application {
         herrialdeaHautatuKud.setMainApp(this);
         sceneHerrialdeHautatu = new Scene(HerrialdeaHautatuUI);
 
+        FXMLLoader loaderErrorea = new FXMLLoader(getClass().getResource("/errorea.fxml"));
+        ErroreaUI = (Parent) loaderErrorea.load();
+        erroreaKud = loaderErrorea.getController();
+        erroreaKud.setMainApp(this);
+        sceneErrorea = new Scene(ErroreaUI);
+
     }
 
     public void herrialdeaHautatuErakutsi(){
+        stage.setTitle("PARTE HARTZAILEAK");
         stage.setScene(sceneHerrialdeHautatu);
+        stage.show();
+    }
+
+    public void erroreaErakutsi(Herrialdea herrialdea){
+        stage.setTitle(herrialdea.getIzena().toUpperCase()+"REN INGURUKO INFORMAZIOA");
+        erroreaKud.datuakJarri(herrialdea);
+        stage.setScene(sceneErrorea);
         stage.show();
     }
 }

@@ -13,4 +13,12 @@ public class Herrialdea {
     public String toString() {
         return izena;
     }
+
+    public String getIzena() {
+        return izena;
+    }
+
+    public String getBandera() {
+        return bandera;
+    }
 }

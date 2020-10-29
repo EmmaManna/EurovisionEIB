@@ -21,7 +21,6 @@ public class HerrialdeaHautatuKud implements Initializable {
 
     private EurovisionEIB main;
 
-
     public void setMainApp(EurovisionEIB main){
         this.main = main;
     }
@@ -41,7 +40,16 @@ public class HerrialdeaHautatuKud implements Initializable {
     @FXML
     void klikEgin(ActionEvent event) {
         if(cmbx_herrialdeak.getValue()!=null){
+            Herrialdea herrialdea = cmbx_herrialdeak.getValue();
+            String bandera = EurobisioaKud.getInstance().bozkatuDu(herrialdea.getIzena());
+            if(bandera!=null){ //Jada bozkatu du
+                System.out.println("Jada bozkatu du");
 
+            }
+            else{ //Oraindik ez du bozkatu
+                System.out.println("Oraindik ez du bozkatu");
+            }
+            main.erroreaErakutsi(herrialdea);
         }
         else{
 
