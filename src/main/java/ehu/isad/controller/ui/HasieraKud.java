@@ -22,7 +22,7 @@ public class HasieraKud implements Initializable {
 
     @FXML
     void klikEgin(ActionEvent event) {
-
+        this.main.herrialdeaHautatuErakutsi();
     }
 
     @Override

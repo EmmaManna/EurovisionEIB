@@ -4,6 +4,7 @@
 package ehu.isad;
 
 import ehu.isad.controller.ui.HasieraKud;
+import ehu.isad.controller.ui.HerrialdeaHautatuKud;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,10 +16,15 @@ import java.io.IOException;
 public class EurovisionEIB extends Application {
 
     private Parent EurobisioaUI;
+    private Parent HerrialdeaHautatuUI;
 
     private Stage stage;
 
+    private Scene sceneHas;
+    private Scene sceneHerrialdeHautatu;
+
     private HasieraKud hasieraKud;
+    private HerrialdeaHautatuKud herrialdeaHautatuKud;
 
 
     @Override
@@ -27,15 +33,27 @@ public class EurovisionEIB extends Application {
         pantailakKargatu();
 
         stage.setTitle("EUROVISION EIB");
-        stage.setScene(new Scene(EurobisioaUI));
+        stage.setScene(sceneHas);
         stage.show();
     }
 
     private void pantailakKargatu() throws IOException {
-
         FXMLLoader loaderEurobisioa = new FXMLLoader(getClass().getResource("/hasiera.fxml"));
         EurobisioaUI = (Parent) loaderEurobisioa.load();
         hasieraKud = loaderEurobisioa.getController();
         hasieraKud.setMainApp(this);
+        sceneHas = new Scene(EurobisioaUI);
+
+        FXMLLoader loaderHarrialdeaHautatu = new FXMLLoader(getClass().getResource("/herrialdeaHautatu.fxml"));
+        HerrialdeaHautatuUI = (Parent) loaderHarrialdeaHautatu.load();
+        herrialdeaHautatuKud = loaderHarrialdeaHautatu.getController();
+        herrialdeaHautatuKud.setMainApp(this);
+        sceneHerrialdeHautatu = new Scene(HerrialdeaHautatuUI);
+
+    }
+
+    public void herrialdeaHautatuErakutsi(){
+        stage.setScene(sceneHerrialdeHautatu);
+        stage.show();
     }
 }
