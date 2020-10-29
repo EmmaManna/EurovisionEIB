@@ -3,9 +3,7 @@
  */
 package ehu.isad;
 
-import ehu.isad.controller.ui.ErroreaKud;
-import ehu.isad.controller.ui.HasieraKud;
-import ehu.isad.controller.ui.HerrialdeaHautatuKud;
+import ehu.isad.controller.ui.*;
 import ehu.isad.model.Herrialdea;
 import ehu.isad.utils.Utils;
 import javafx.application.Application;
@@ -24,16 +22,22 @@ public class EurovisionEIB extends Application {
     private Parent EurobisioaUI;
     private Parent HerrialdeaHautatuUI;
     private Parent ErroreaUI;
+    private Parent BozkaketaUI;
+    private Parent Top3UI;
 
     private Stage stage;
 
     private Scene sceneHas;
     private Scene sceneHerrialdeHautatu;
     private Scene sceneErrorea;
+    private Scene sceneBozkaketa;
+    private Scene sceneTop3;
 
     private HasieraKud hasieraKud;
     private HerrialdeaHautatuKud herrialdeaHautatuKud;
     private ErroreaKud erroreaKud;
+    private BozkaketakKud bozkaketakKud;
+    private top3Kud top3Kud;
 
 
     @Override
@@ -78,6 +82,18 @@ public class EurovisionEIB extends Application {
         erroreaKud.setMainApp(this);
         sceneErrorea = new Scene(ErroreaUI);
 
+        FXMLLoader loaderBozkaketa = new FXMLLoader(getClass().getResource("/bozkaketak.fxml"));
+        BozkaketaUI = (Parent) loaderBozkaketa.load();
+        bozkaketakKud = loaderBozkaketa.getController();
+        bozkaketakKud.setMainApp(this);
+        sceneBozkaketa = new Scene(BozkaketaUI);
+
+        FXMLLoader loaderTop3 = new FXMLLoader(getClass().getResource("/top3.fxml"));
+        Top3UI = (Parent) loaderTop3.load();
+        top3Kud = loaderTop3.getController();
+        top3Kud.setMainApp(this);
+        sceneTop3 = new Scene(Top3UI);
+
     }
 
 
@@ -93,6 +109,21 @@ public class EurovisionEIB extends Application {
         this.ikonoaJarri(herrialdea.getBandera());
         erroreaKud.datuakJarri(herrialdea);
         stage.setScene(sceneErrorea);
+        stage.show();
+    }
+
+    public void bozkatzekoPantailaErakutsi(Herrialdea herrialdea){
+        stage.setTitle(herrialdea.getIzena().toUpperCase()+"REN BOZKAKETA PANELA");
+        this.ikonoaJarri(herrialdea.getBandera());
+        bozkaketakKud.datuakJarri(herrialdea);
+        stage.setScene(sceneBozkaketa);
+        stage.show();
+    }
+
+    public void top3Erakutsi(){
+        stage.setTitle("LEHENENGO HIRU POSTUAK");
+        this.ikonoaJarri("");
+        stage.setScene(sceneTop3);
         stage.show();
     }
 }
