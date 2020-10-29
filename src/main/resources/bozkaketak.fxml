@@ -17,7 +17,7 @@
          </image>
       </ImageView>
       <ImageView fx:id="mgvw_bihotza" fitHeight="81.0" fitWidth="83.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-      <Text fx:id="txt_banatu" layoutX="127.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="258.7444152832031">
+      <Text fx:id="txt_banatu" layoutX="114.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="295.4111633300781">
          <font>
             <Font size="22.0" />
          </font>
