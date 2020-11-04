@@ -13,14 +13,12 @@ import javafx.fxml.Initializable;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
@@ -37,7 +35,7 @@ public class BozkaketakKud implements Initializable {
         this.main = main;
     }
 
-    private Integer puntuak = 5;
+    private Integer puntuak = 0;
 
     private List<Ordezkaritza> ordezkaritza;
 
@@ -75,7 +73,17 @@ public class BozkaketakKud implements Initializable {
 
     @FXML
     void klikEgin(ActionEvent event) {
-        main.top3Erakutsi();
+        List<Ordezkaritza> botoak = this.bozkatuaklortu();
+        if(this.puntuak <= 5 && this.puntuak > 0 && this.guztiakPositibo(botoak)){
+            for (int i = 0; i < botoak.size(); i++) {
+                Ordezkaritza o = botoak.get(i);
+                EurobisioaKud.getInstance().bozkaketaGorde(o.getHerrialdea().getIzena(), this.unekoHerrialdea, o.getPuntuak());
+                EurobisioaKud.getInstance().puntuakEguneratu(o.getHerrialdea().getIzena(), o.getPuntuak());
+            }
+            main.top3Erakutsi();
+        }
+        System.out.println("Puntuak txarto eman dituzu!");
+
     }
 
     @Override
@@ -94,14 +102,15 @@ public class BozkaketakKud implements Initializable {
         //Puntuak sartzen badira
         col_puntuak.setOnEditCommit(
                 t -> {
-                    Integer sartuPuntu = t.getNewValue();
-                    if(this.puntuak > 0 && sartuPuntu >= 0 && sartuPuntu <= this.puntuak){
-                        t.getTableView().getItems().get(t.getTablePosition().getRow())
-                                .setPuntuak(t.getNewValue());
-                    }
-                    else{
 
+                    if(t.getNewValue()>t.getOldValue() && t.getNewValue()>=0){ //Puntuak eman
+                        this.puntuak = this.puntuak+(t.getNewValue()-t.getOldValue());
                     }
+                    else if(t.getNewValue()<t.getOldValue() && t.getNewValue()>=0){ //Puntuak kendu
+                        this.puntuak = this.puntuak-(t.getOldValue()-t.getNewValue());
+                    }
+                    t.getTableView().getItems().get(t.getTablePosition().getRow())
+                            .setPuntuak(t.getNewValue());
                 }
         );
 
@@ -165,8 +174,23 @@ public class BozkaketakKud implements Initializable {
         }
     }
 
-    private void editatzenEzUtzi(String herrialdea){
+    private List<Ordezkaritza> bozkatuaklortu(){
+        List<Ordezkaritza> emaitza = new ArrayList<>();
 
+        for(int i=0; i < this.ordezkaritza.size(); i++){
+            if(this.ordezkaritza.get(i).getPuntuak() != 0){
+                emaitza.add(this.ordezkaritza.get(i));
+            }
+        }
+        return emaitza;
     }
 
+    private Boolean guztiakPositibo(List<Ordezkaritza> o){
+        for(int i=0; i < o.size(); i++){
+            if(o.get(i).getPuntuak()<0){
+               return false;
+            }
+        }
+        return true;
+    }
 }

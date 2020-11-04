@@ -41,7 +41,7 @@ public class EurobisioaKud {
     }
 
     public String bozkatuDu(String herrialdea){
-        String query = "select h.bandera bandera from Herrialde h, Bozkaketa b where izena='"+herrialdea+"' AND b.bozkatuDu=h.izena AND b.urtea=(SELECT strftime('%Y','now')-1)";
+        String query = "select h.bandera bandera from Herrialde h, Bozkaketa b where izena='"+herrialdea+"' AND b.bozkatuDu=h.izena AND b.urtea=(SELECT strftime('%Y','now'))";
         DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
         ResultSet rs = dbKudeatzaile.execSQL(query);
 
@@ -56,7 +56,7 @@ public class EurobisioaKud {
     }
 
     public List<Ordezkaritza> lortuOrdezkaritzak(){
-        String query = "SELECT bandera, artista, abestia, herrialdea FROM Herrialde , Ordezkaritza  WHERE izena=herrialdea AND urtea=(SELECT strftime('%Y','now')-1) ORDER BY herrialdea ASC"; //WHERE urtea=currentYear()
+        String query = "SELECT bandera, artista, abestia, herrialdea FROM Herrialde , Ordezkaritza  WHERE izena=herrialdea AND urtea=(SELECT strftime('%Y','now')) ORDER BY herrialdea ASC"; //WHERE urtea=currentYear()
         DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
         ResultSet rs = dbKudeatzaile.execSQL(query);
 
@@ -75,5 +75,41 @@ public class EurobisioaKud {
         return emaitza;
 
     }
+
+    public void bozkaketaGorde(String bozkatua, String bozkatzailea, Integer puntuak){
+        String query = "INSERT INTO Bozkaketa VALUES('"+bozkatua+"','"+bozkatzailea+"', (SELECT strftime('%Y','now')),"+puntuak+")";
+        DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
+        dbKudeatzaile.execSQL(query);
+    }
+
+    public void puntuakEguneratu(String herrialdea, Integer puntuak){
+        String query = "UPDATE Ordezkaritza SET puntuak=puntuak+"+puntuak+" WHERE herrialdea='"+herrialdea+"'";
+        DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
+        dbKudeatzaile.execSQL(query);
+    }
+
+    public List<String> lortuTop3(){
+        String query = "SELECT bandera, herrialdea, puntuak FROM Herrialde , Ordezkaritza  WHERE izena=herrialdea AND urtea=(SELECT strftime('%Y','now')) ORDER BY puntuak DESC LIMIT 3"; //WHERE urtea=currentYear()
+        DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
+        ResultSet rs = dbKudeatzaile.execSQL(query);
+
+        List<String> emaitza = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                String herrialdea = rs.getString("herrialdea");
+                String bandera = rs.getString("bandera");
+                Integer puntuak = rs.getInt("puntuak");
+
+                String lag = bandera + ";" + herrialdea + ";" + puntuak;
+                emaitza.add(lag);
+            }
+        } catch(SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return emaitza;
+
+    }
+
+
 
 }
