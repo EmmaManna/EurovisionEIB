@@ -38,11 +38,19 @@ public class HerrialdeaHautatuKud implements Initializable {
     private Button btn_OK;
 
     @FXML
+    private Button btn_puntuazioa;
+
+    @FXML
     private Text txt_warning;
 
     @FXML
     void aukeratu(ActionEvent event) {
         this.txt_warning.setVisible(false);
+    }
+
+    @FXML
+    void klikPuntuazioa(ActionEvent event) {
+        this.main.puntuazioakErakutsi();
     }
 
     @FXML

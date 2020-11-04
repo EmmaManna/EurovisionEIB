@@ -21,18 +21,10 @@ public class HasieraKud implements Initializable {
     private Button btn_bozkatu;
 
     @FXML
-    private Button btn_puntuazioak;
-
-
-    @FXML
     void klikEgin(ActionEvent event) {
         this.main.herrialdeaHautatuErakutsi();
     }
 
-    @FXML
-    void klikPuntuazioak(ActionEvent event) {
-        this.main.top3Erakutsi();
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

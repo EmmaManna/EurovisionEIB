@@ -24,6 +24,7 @@ public class EurovisionEIB extends Application {
     private Parent ErroreaUI;
     private Parent BozkaketaUI;
     private Parent Top3UI;
+    private Parent PuntuazioaUI;
 
     private Stage stage;
 
@@ -32,12 +33,14 @@ public class EurovisionEIB extends Application {
     private Scene sceneErrorea;
     private Scene sceneBozkaketa;
     private Scene sceneTop3;
+    private Scene scenePuntuazioa;
 
     private HasieraKud hasieraKud;
     private HerrialdeaHautatuKud herrialdeaHautatuKud;
     private ErroreaKud erroreaKud;
     private BozkaketakKud bozkaketakKud;
     private top3Kud top3Kud;
+    private PuntuazioakKud puntuazioakKud;
 
 
     @Override
@@ -94,6 +97,11 @@ public class EurovisionEIB extends Application {
         top3Kud.setMainApp(this);
         sceneTop3 = new Scene(Top3UI);
 
+        FXMLLoader loaderPuntuazioa = new FXMLLoader(getClass().getResource("/puntuazioak.fxml"));
+        PuntuazioaUI = (Parent) loaderPuntuazioa.load();
+        puntuazioakKud = loaderPuntuazioa.getController();
+        puntuazioakKud.setMainApp(this);
+        scenePuntuazioa = new Scene(PuntuazioaUI);
     }
 
 
@@ -125,6 +133,13 @@ public class EurovisionEIB extends Application {
         this.ikonoaJarri("");
         stage.setScene(sceneTop3);
         top3Kud.datuakJarri();
+        stage.show();
+    }
+
+    public void puntuazioakErakutsi(){
+        stage.setTitle("SAILKAPEN OROKORRA");
+        this.ikonoaJarri("");
+        stage.setScene(scenePuntuazioa);
         stage.show();
     }
 

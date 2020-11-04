@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="238.0" prefWidth="408.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ehu.isad.controller.ui.HasieraKud">
    <children>
-      <Button fx:id="btn_bozkatu" layoutX="61.0" layoutY="171.0" mnemonicParsing="false" onAction="#klikEgin" text="Bozkatu" textAlignment="CENTER">
+      <Button fx:id="btn_bozkatu" layoutX="158.0" layoutY="166.0" mnemonicParsing="false" onAction="#klikEgin" text="Bozkatu" textAlignment="CENTER">
          <font>
             <Font size="19.0" />
          </font>
@@ -18,10 +18,5 @@
             <Image url="@Images/eurovisionLogo.png" />
          </image>
       </ImageView>
-      <Button fx:id="btn_puntuazioak" layoutX="192.0" layoutY="171.0" mnemonicParsing="false" onAction="#klikPuntuazioak" prefHeight="42.0" prefWidth="171.0" text="Puntuazioak ikusi" textAlignment="CENTER">
-         <font>
-            <Font size="19.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>

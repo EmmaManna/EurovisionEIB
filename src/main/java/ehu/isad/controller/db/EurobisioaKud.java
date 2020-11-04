@@ -1,5 +1,6 @@
 package ehu.isad.controller.db;
 
+import ehu.isad.model.Datuak;
 import ehu.isad.model.Herrialdea;
 import ehu.isad.model.Ordezkaritza;
 
@@ -102,6 +103,28 @@ public class EurobisioaKud {
 
                 String lag = bandera + ";" + herrialdea + ";" + puntuak;
                 emaitza.add(lag);
+            }
+        } catch(SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return emaitza;
+
+    }
+
+    public List<Datuak> lortuPuntuazioak(){
+        String query = "SELECT bandera, artista, abestia, herrialdea, puntuak FROM Herrialde , Ordezkaritza  WHERE izena=herrialdea AND urtea=(SELECT strftime('%Y','now')) ORDER BY herrialdea ASC"; //WHERE urtea=currentYear()
+        DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
+        ResultSet rs = dbKudeatzaile.execSQL(query);
+
+        List<Datuak> emaitza = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                String herrialdea = rs.getString("herrialdea");
+                String bandera = rs.getString("bandera");
+                String artista =  rs.getString("artista");
+                String abestia =  rs.getString("abestia");
+                Integer puntuak = rs.getInt("puntuak");
+                emaitza.add(new Datuak(artista,new Herrialdea(herrialdea,bandera),abestia,puntuak));
             }
         } catch(SQLException throwables){
             throwables.printStackTrace();
