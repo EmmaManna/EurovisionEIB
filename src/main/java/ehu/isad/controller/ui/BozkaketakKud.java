@@ -60,6 +60,9 @@ public class BozkaketakKud implements Initializable {
     private Button btn_bozkatu;
 
     @FXML
+    private Button btn_atzera;
+
+    @FXML
     private TableView<Ordezkaritza> tbl_bozkatu;
 
     @FXML
@@ -76,6 +79,11 @@ public class BozkaketakKud implements Initializable {
 
     @FXML
     private TableColumn<Ordezkaritza, Integer> col_puntuak;
+
+    @FXML
+    void klikAtzera(ActionEvent event) {
+        this.main.herrialdeaHautatuErakutsi();
+    }
 
     @FXML
     void klikEgin(ActionEvent event) {

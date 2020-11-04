@@ -4,7 +4,6 @@ import ehu.isad.EurovisionEIB;
 import ehu.isad.controller.db.EurobisioaKud;
 import ehu.isad.model.Datuak;
 import ehu.isad.model.Herrialdea;
-import ehu.isad.model.Ordezkaritza;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,7 +18,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.net.URL;

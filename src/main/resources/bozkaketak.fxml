@@ -22,7 +22,7 @@
             <Font size="22.0" />
          </font>
       </Text>
-      <Button fx:id="btn_bozkatu" layoutX="224.0" layoutY="348.0" mnemonicParsing="false" onAction="#klikEgin" text="Bozkaketa Gorde">
+      <Button fx:id="btn_bozkatu" layoutX="291.0" layoutY="348.0" mnemonicParsing="false" onAction="#klikEgin" text="Bozkaketa Gorde">
          <font>
             <Font size="17.0" />
          </font>
@@ -39,7 +39,12 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Text fx:id="txt_warning" fill="#ee0505" layoutX="386.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kontuz! Puntu gehiegi ematen ari dituzu" wrappingWidth="217.83856201171875" />
-      <Text fx:id="txt_warning1" fill="#ee0505" layoutX="386.0" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kontuz! Balioren bat ez da egokia" wrappingWidth="187.83853149414062" />
+      <Text fx:id="txt_warning" fill="#ee0505" layoutX="376.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kontuz! Puntu gehiegi ematen ari dituzu" wrappingWidth="217.83856201171875" />
+      <Text fx:id="txt_warning1" fill="#ee0505" layoutX="376.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kontuz! Balioren bat ez da egokia" wrappingWidth="187.83853149414062" />
+      <Button fx:id="btn_atzera" layoutX="190.0" layoutY="348.0" mnemonicParsing="false" onAction="#klikAtzera" text="Atzera">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
