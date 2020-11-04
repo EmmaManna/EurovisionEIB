@@ -27,7 +27,7 @@
             <Font size="17.0" />
          </font>
       </Button>
-      <TableView layoutX="26.0" layoutY="100.0" prefHeight="200.0" prefWidth="541.0">
+      <TableView fx:id="tbl_bozkatu" layoutX="26.0" layoutY="100.0" prefHeight="200.0" prefWidth="541.0">
         <columns>
           <TableColumn fx:id="col_bandera" prefWidth="75.0" />
           <TableColumn fx:id="col_herrialdea" prefWidth="75.0" text="Herrialdea" />

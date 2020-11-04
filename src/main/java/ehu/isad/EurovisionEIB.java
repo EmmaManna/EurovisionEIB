@@ -126,4 +126,5 @@ public class EurovisionEIB extends Application {
         stage.setScene(sceneTop3);
         stage.show();
     }
+
 }

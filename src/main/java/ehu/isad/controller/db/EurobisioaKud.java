@@ -1,6 +1,7 @@
 package ehu.isad.controller.db;
 
 import ehu.isad.model.Herrialdea;
+import ehu.isad.model.Ordezkaritza;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,7 +41,7 @@ public class EurobisioaKud {
     }
 
     public String bozkatuDu(String herrialdea){
-        String query = "select h.bandera bandera from Herrialde h, Bozkaketa b where izena='"+herrialdea+"' AND b.bozkatuDu=h.izena AND b.urtea=(SELECT strftime('%Y','now'))";
+        String query = "select h.bandera bandera from Herrialde h, Bozkaketa b where izena='"+herrialdea+"' AND b.bozkatuDu=h.izena AND b.urtea=(SELECT strftime('%Y','now')-1)";
         DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
         ResultSet rs = dbKudeatzaile.execSQL(query);
 
@@ -54,5 +55,25 @@ public class EurobisioaKud {
         return null;
     }
 
+    public List<Ordezkaritza> lortuOrdezkaritzak(){
+        String query = "SELECT bandera, artista, abestia, herrialdea FROM Herrialde , Ordezkaritza  WHERE izena=herrialdea AND urtea=(SELECT strftime('%Y','now')-1) ORDER BY herrialdea ASC"; //WHERE urtea=currentYear()
+        DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
+        ResultSet rs = dbKudeatzaile.execSQL(query);
+
+        List<Ordezkaritza> emaitza = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                String herrialdea = rs.getString("herrialdea");
+                String bandera = rs.getString("bandera");
+                String artista =  rs.getString("artista");
+                String abestia =  rs.getString("abestia");
+                emaitza.add(new Ordezkaritza(artista,new Herrialdea(herrialdea,bandera),abestia));
+            }
+        } catch(SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return emaitza;
+
+    }
 
 }
