@@ -124,6 +124,7 @@ public class EurovisionEIB extends Application {
         stage.setTitle("LEHENENGO HIRU POSTUAK");
         this.ikonoaJarri("");
         stage.setScene(sceneTop3);
+        top3Kud.datuakJarri();
         stage.show();
     }
 

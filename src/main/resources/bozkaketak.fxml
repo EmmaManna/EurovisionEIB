@@ -27,7 +27,7 @@
             <Font size="17.0" />
          </font>
       </Button>
-      <TableView fx:id="tbl_bozkatu" layoutX="26.0" layoutY="100.0" prefHeight="200.0" prefWidth="541.0">
+      <TableView fx:id="tbl_bozkatu" layoutX="21.0" layoutY="95.0" prefHeight="212.0" prefWidth="575.0">
         <columns>
           <TableColumn fx:id="col_bandera" prefWidth="75.0" />
           <TableColumn fx:id="col_herrialdea" prefWidth="75.0" text="Herrialdea" />
@@ -39,5 +39,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
+      <Text fx:id="txt_warning" fill="#ee0505" layoutX="386.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kontuz! Puntu gehiegi ematen ari dituzu" wrappingWidth="217.83856201171875" />
+      <Text fx:id="txt_warning1" fill="#ee0505" layoutX="386.0" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kontuz! Balioren bat ez da egokia" wrappingWidth="187.83853149414062" />
    </children>
 </AnchorPane>

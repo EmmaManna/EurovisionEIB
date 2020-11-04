@@ -51,6 +51,12 @@ public class BozkaketakKud implements Initializable {
     private Text txt_banatu;
 
     @FXML
+    private Text txt_warning;
+
+    @FXML
+    private Text txt_warning1;
+
+    @FXML
     private Button btn_bozkatu;
 
     @FXML
@@ -82,12 +88,17 @@ public class BozkaketakKud implements Initializable {
             }
             main.top3Erakutsi();
         }
-        System.out.println("Puntuak txarto eman dituzu!");
+        else{
+            txt_warning1.setVisible(true);
+        }
 
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        txt_warning.setVisible(false);
+        txt_warning1.setVisible(false);
+
         // Nola bistaratu gelaxkak (zutabearen arabera)
         // Get value from property of UserAccount.
         tbl_bozkatu.setEditable(true);
@@ -102,12 +113,14 @@ public class BozkaketakKud implements Initializable {
         //Puntuak sartzen badira
         col_puntuak.setOnEditCommit(
                 t -> {
-
-                    if(t.getNewValue()>t.getOldValue() && t.getNewValue()>=0){ //Puntuak eman
+                    txt_warning1.setVisible(false);
+                    if(t.getNewValue()>t.getOldValue() && t.getOldValue()>=0){ //Puntuak eman
                         this.puntuak = this.puntuak+(t.getNewValue()-t.getOldValue());
+                        this.warningKudeatu();
                     }
                     else if(t.getNewValue()<t.getOldValue() && t.getNewValue()>=0){ //Puntuak kendu
                         this.puntuak = this.puntuak-(t.getOldValue()-t.getNewValue());
+                        this.warningKudeatu();
                     }
                     t.getTableView().getItems().get(t.getTablePosition().getRow())
                             .setPuntuak(t.getNewValue());
@@ -192,5 +205,14 @@ public class BozkaketakKud implements Initializable {
             }
         }
         return true;
+    }
+
+    private void warningKudeatu(){
+        if(this.puntuak<=5){
+            txt_warning.setVisible(false);
+        }
+        else{
+            txt_warning.setVisible(true);
+        }
     }
 }

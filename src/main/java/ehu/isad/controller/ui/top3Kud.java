@@ -1,13 +1,19 @@
 package ehu.isad.controller.ui;
 
 import ehu.isad.EurovisionEIB;
+import ehu.isad.controller.db.EurobisioaKud;
+import ehu.isad.utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
@@ -55,5 +61,35 @@ public class top3Kud implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+    }
+
+    public void datuakJarri(){
+        List<String> datuak = EurobisioaKud.getInstance().lortuTop3();
+
+        String herrialdea = datuak.get(0);
+        String[] zatiak = herrialdea.split(";");
+        txt_top1.setText(zatiak[1]+ " - " + zatiak[2] + " puntu");
+        mgvw_bantop1.setImage(this.irudiaLortu(zatiak[0]));
+
+        herrialdea = datuak.get(1);
+        zatiak = herrialdea.split(";");
+        txt_top2.setText(zatiak[1]+ " - " + zatiak[2] + " puntu");
+        mgvw_bantop2.setImage(this.irudiaLortu(zatiak[0]));
+
+        herrialdea = datuak.get(2);
+        zatiak = herrialdea.split(";");
+        txt_top3.setText(zatiak[1]+ " - " + zatiak[2] + " puntu");
+        mgvw_bantop3.setImage(this.irudiaLortu(zatiak[0]));
+
+    }
+
+    private Image irudiaLortu(String path){
+        String imagePath = Utils.lortuEzarpenak().getProperty("pathToImages")+path+".png";
+        try {
+            return new Image(new FileInputStream(imagePath));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
