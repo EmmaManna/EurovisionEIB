@@ -3,6 +3,7 @@ package ehu.isad.controller.db;
 import ehu.isad.model.Datuak;
 import ehu.isad.model.Herrialdea;
 import ehu.isad.model.Ordezkaritza;
+import ehu.isad.model.Top3;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -87,20 +88,19 @@ public class EurobisioaKud {
         dbKudeatzaile.execSQL(query);
     }
 
-    public List<String> lortuTop3(){
+    public List<Top3> lortuTop3(){
         String query = "SELECT bandera, herrialdea, puntuak FROM Herrialde , Ordezkaritza  WHERE izena=herrialdea AND urtea=(SELECT strftime('%Y','now')) ORDER BY puntuak DESC LIMIT 3"; //WHERE urtea=currentYear()
         DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
         ResultSet rs = dbKudeatzaile.execSQL(query);
 
-        List<String> emaitza = new ArrayList<>();
+        List<Top3> emaitza = new ArrayList<>();
         try {
             while (rs.next()) {
                 String herrialdea = rs.getString("herrialdea");
                 String bandera = rs.getString("bandera");
                 Integer puntuak = rs.getInt("puntuak");
 
-                String lag = bandera + ";" + herrialdea + ";" + puntuak;
-                emaitza.add(lag);
+                emaitza.add(new Top3(puntuak, new Herrialdea(herrialdea,bandera)));
             }
         } catch(SQLException throwables){
             throwables.printStackTrace();
@@ -110,7 +110,7 @@ public class EurobisioaKud {
     }
 
     public List<Datuak> lortuPuntuazioak(){
-        String query = "SELECT bandera, artista, abestia, herrialdea, puntuak FROM Herrialde , Ordezkaritza  WHERE izena=herrialdea AND urtea=(SELECT strftime('%Y','now')) ORDER BY herrialdea ASC"; //WHERE urtea=currentYear()
+        String query = "SELECT bandera, artista, abestia, herrialdea, puntuak FROM Herrialde , Ordezkaritza  WHERE izena=herrialdea AND urtea=(SELECT strftime('%Y','now')) ORDER BY puntuak DESC"; //WHERE urtea=currentYear()
         DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
         ResultSet rs = dbKudeatzaile.execSQL(query);
 

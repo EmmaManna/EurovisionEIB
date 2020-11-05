@@ -97,6 +97,10 @@ public class PuntuazioakKud implements Initializable {
         });
 
         //add your data to the table here.
+       this.datuakKargatu();
+    }
+
+    public void datuakKargatu(){
         puntuazioa = EurobisioaKud.getInstance().lortuPuntuazioak();
         ObservableList<Datuak> herrialdePuntuak = FXCollections.observableArrayList(puntuazioa);
         tbl_bozkatu.setItems(herrialdePuntuak);

@@ -94,6 +94,7 @@ public class BozkaketakKud implements Initializable {
                 EurobisioaKud.getInstance().bozkaketaGorde(o.getHerrialdea().getIzena(), this.unekoHerrialdea, o.getPuntuak());
                 EurobisioaKud.getInstance().puntuakEguneratu(o.getHerrialdea().getIzena(), o.getPuntuak());
             }
+            this.puntuak = 0;
             main.top3Erakutsi();
         }
         else{
@@ -155,9 +156,7 @@ public class BozkaketakKud implements Initializable {
         });
 
         //add your data to the table here.
-        ordezkaritza = EurobisioaKud.getInstance().lortuOrdezkaritzak();
-        ObservableList<Ordezkaritza> ordezkaritzak = FXCollections.observableArrayList(ordezkaritza);
-        tbl_bozkatu.setItems(ordezkaritzak);
+        datuaKargatu();
 
         //Uneko herrialdeari botoa propioa ematen ez utzi
         Callback<TableColumn<Ordezkaritza, Integer>, TableCell<Ordezkaritza, Integer>> defaultTextFieldCellFactory
@@ -180,10 +179,16 @@ public class BozkaketakKud implements Initializable {
         });
     }
 
+    private void datuaKargatu(){
+        ordezkaritza = EurobisioaKud.getInstance().lortuOrdezkaritzak();
+        ObservableList<Ordezkaritza> ordezkaritzak = FXCollections.observableArrayList(ordezkaritza);
+        tbl_bozkatu.setItems(ordezkaritzak);
+    }
+
     public void datuakJarri(Herrialdea herrialdea){
         this.txt_banatu.setText(herrialdea.getIzena()+ "k horrela banatu nahi ditu bere puntuak:");
         this.bihotzaKargatu(herrialdea.getBandera());
-        this.unekoHerrialdea = herrialdea.getIzena();
+        this.datuaKargatu();
     }
 
     private void bihotzaKargatu(String izena){
@@ -222,5 +227,9 @@ public class BozkaketakKud implements Initializable {
         else{
             txt_warning.setVisible(true);
         }
+    }
+
+    public void setUnekoHerrialdea(String unekoHerrialdea) {
+        this.unekoHerrialdea = unekoHerrialdea;
     }
 }

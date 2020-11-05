@@ -123,6 +123,7 @@ public class EurovisionEIB extends Application {
     public void bozkatzekoPantailaErakutsi(Herrialdea herrialdea){
         stage.setTitle(herrialdea.getIzena().toUpperCase()+"REN BOZKAKETA PANELA");
         this.ikonoaJarri(herrialdea.getBandera());
+        bozkaketakKud.setUnekoHerrialdea(herrialdea.getIzena());
         bozkaketakKud.datuakJarri(herrialdea);
         stage.setScene(sceneBozkaketa);
         stage.show();
@@ -139,6 +140,7 @@ public class EurovisionEIB extends Application {
     public void puntuazioakErakutsi(){
         stage.setTitle("SAILKAPEN OROKORRA");
         this.ikonoaJarri("");
+        puntuazioakKud.datuakKargatu();
         stage.setScene(scenePuntuazioa);
         stage.show();
     }
